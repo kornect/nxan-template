@@ -14,7 +14,22 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@nxan/server/*": ["libs/server/shared/src/lib/*"],
+      "@nxan/server/auth/api": [
+        "libs/server/auth/api/src/index.ts"
+      ],
+      "@nxan/server/auth/domain": [
+        "libs/server/auth/domain/src/index.ts"
+      ],
+      "@nxan/server/users/api": [
+        "libs/server/users/api/src/index.ts"
+      ],
+      "@nxan/server/users/domain": [
+        "libs/server/users/domain/src/index.ts"
+      ],
+      "@nxan/shared/utils": ["libs/shared/utils/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
