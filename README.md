@@ -190,7 +190,7 @@ This project is [MIT](https://github.com/kornect/nxan-template/blob/master/LICEN
 <!-- Acknowledgments -->
 ## :gem: Acknowledgements
 
-Use this section to mention useful resources and libraries that you have used in your projects.
+Thanks to the following projects that made this project possible:
 
 - [Shields.io](https://shields.io/)
 - [Awesome Readme Template](https://github.com/Louis3797/awesome-readme-template)
