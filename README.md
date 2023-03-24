@@ -52,7 +52,6 @@ Maybe you can mention me or this repo in the acknowledgements too
 
 - [About the Project](#star2-about-the-project)
   * [Tech Stack](#space_invader-tech-stack)
-  * [Environment Variables](#key-environment-variables)
 - [Getting Started](#toolbox-getting-started)
   * [Prerequisites](#bangbang-prerequisites)
   * [Installation](#gear-installation)
