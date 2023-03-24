@@ -96,13 +96,6 @@ The project is in a mono repo implemented using [nx](https://nx.dev/):
   </ul>
 </details>
 
-<!-- Env Variables -->
-### :key: Environment Variables
-
-To run this project, you will need to add the following environment variables to your .env file in the root of the api project
-
-rename `.env.example` to `.env` and populate the variables accordingly
-
 <!-- Getting Started -->
 ## 	:toolbox: Getting Started
 
@@ -126,6 +119,14 @@ Go to the project directory and install dependencies
 ```bash
   cd nxan-template
   npm install
+```
+
+Setup the environment variables
+
+```bash
+  cd apps/api
+  
+  cp .env.example .env # then populate the variables in `.env` file accordingly
 ```
 
 Compose the docker containers for the database, redis and other services
@@ -186,6 +187,7 @@ This project is [MIT](https://github.com/kornect/nxan-template/blob/master/LICEN
 
 * Github: [@kornect](https://github.com/kornect)
 * LinkedIn: [@https:\/\/www.linkedin.com\/in\/mogaumokgabudi](https://linkedin.com/in/https:\/\/www.linkedin.com\/in\/mogaumokgabudi)
+* Twitter: [@kornect](https://twitter.com/MogauSocial)
 
 <!-- Acknowledgments -->
 ## :gem: Acknowledgements
