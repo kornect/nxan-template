@@ -1,7 +1,24 @@
 {
-  "name": "nxan",
-  "version": "0.0.0",
+  "name": "nxan-template",
+  "version": "0.0.1",
   "license": "MIT",
+  "author": {
+    "name": "Kornect",
+    "url": "https://github.com/kornect"
+  },
+  "homepage": "https://github.com/kornect/nxan-template#readme",
+  "repository": {
+    "type": "git",
+    "url":"git+https://github.com/kornect/nxan-template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kornect/nxan-template/issues"
+  },
+  "engines": {
+    "npm": ">=5.5.0",
+    "node": ">=9.3.0",
+    "nx": ">=15.8.6"
+  },
   "scripts": {},
   "private": true,
   "dependencies": {

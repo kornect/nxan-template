@@ -1,13 +1,40 @@
 import { Controller, Get } from '@nestjs/common';
+import { ApiExcludeController, ApiOperation, ApiProperty, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  HealthCheck,
+  HealthCheckResult,
+  HealthCheckService,
+  HealthIndicatorResult,
+  MikroOrmHealthIndicator
+} from '@nestjs/terminus';
+import { AllowAnonymous } from '@nxan/server/auth/public';
 
-import { AppService } from './app.service';
 
+
+export class HealthCheckResponse implements HealthCheckResult {
+  @ApiProperty({ enum: ['error', 'ok', 'shutting_down'] })
+  status: 'error' | 'ok' | 'shutting_down';
+  @ApiProperty()
+  info?: HealthIndicatorResult;
+  @ApiProperty()
+  error?: HealthIndicatorResult;
+  @ApiProperty()
+  details: HealthIndicatorResult;
+}
+
+@ApiExcludeController()
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private health: HealthCheckService, private db: MikroOrmHealthIndicator) {
+  }
 
-  @Get()
-  getData() {
-    return this.appService.getData();
+  @Get('health')
+  @AllowAnonymous()
+  @ApiTags('health')
+  @ApiOperation({ operationId: 'get-health', summary: 'Health check' })
+  @ApiResponse({ type: HealthCheckResponse })
+  @HealthCheck()
+  check() {
+    return this.health.check([() => this.db.pingCheck('database')]);
   }
 }

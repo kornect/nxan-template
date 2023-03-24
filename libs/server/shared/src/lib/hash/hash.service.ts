@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { isNullOrEmpty } from "@nxan/shared/utils";
 import * as argon2 from 'argon2';
+import { Injectable } from '@nestjs/common';
+
+import { isNullOrEmpty } from '@nxan/shared/utils';
 
 @Injectable()
 export class HashService {

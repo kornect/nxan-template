@@ -1,12 +1,11 @@
-import { Inject, Injectable } from "@nestjs/common";
-import { OTP_OPTIONS, OtpOptions } from "./otp.options";
 import * as otpGenerator from 'otp-generator';
+import { Inject, Injectable } from '@nestjs/common';
+
+import { OTP_OPTIONS, OtpOptions } from './otp.options';
 
 @Injectable()
 export class OtpService {
-  constructor(@Inject(OTP_OPTIONS) private options: OtpOptions) {
-
-  }
+  constructor(@Inject(OTP_OPTIONS) private options: OtpOptions) {}
 
   generateAsync(): Promise<string> {
     return new Promise((resolve, reject) => {

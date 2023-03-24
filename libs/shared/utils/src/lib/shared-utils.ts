@@ -98,6 +98,8 @@ export function getExpirationDate(expirationFormat: string, referenceDate?: Date
   } else if (expirationFormat.endsWith('ms')) {
     return addMilliseconds(now, parseInt(expirationFormat.replace('ms', '')));
   } else {
-    throw new Error('Invalid expiration format, format must have time post fix (s, m, h, d, ms). Example: 1d, 1h, 1m, 1s, 1ms');
+    throw new Error(
+      'Invalid expiration format, format must have time post fix (s, m, h, d, ms). Example: 1d, 1h, 1m, 1s, 1ms'
+    );
   }
 }

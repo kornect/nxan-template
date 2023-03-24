@@ -1,11 +1,97 @@
-import { Module } from '@nestjs/common';
+import { classes } from '@automapper/classes';
+import { AutomapperModule } from '@automapper/nestjs';
+import { MikroOrmModule } from '@mikro-orm/nestjs';
+import { defineConfig } from '@mikro-orm/postgresql';
+import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { Logger, Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { APP_GUARD, RouterModule } from '@nestjs/core';
+import { TerminusModule } from '@nestjs/terminus';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { ClsModule } from 'nestjs-cls';
+
+import { AuthApiModule } from '@nxan/server/auth/api';
+import { AccessTokenGuard } from '@nxan/server/auth/app';
+import { isProduction } from '@nxan/shared/utils';
 
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { migrationsList } from './app.migrations';
 
 @Module({
-  imports: [],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    MikroOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        type: 'postgresql',
+        autoLoadEntities: true,
+        ...defineConfig({
+          clientUrl: config.get('DATABASE_URL'),
+          driverOptions: {
+            connection: {
+              ssl: isProduction(),
+            },
+          },
+          allowGlobalContext: true,
+          autoJoinOneToOneOwner: true,
+          forceUtcTimezone: true,
+          highlighter: new SqlHighlighter(),
+          debug: !isProduction(),
+          migrations: {
+            migrationsList: migrationsList,
+          },
+        }),
+      }),
+    }),
+    TerminusModule.forRoot(),
+    ThrottlerModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        ttl: config.get('THROTTLE_TTL') ?? 60,
+        limit: config.get('THROTTLE_LIMIT') ?? 10,
+      }),
+    }),
+    MailerModule.forRootAsync({
+      useFactory: (config: ConfigService) => ({
+        transport: config.get('MAIL_TRANSPORT'),
+        defaults: {
+          from: `"No Reply" <${config.get('MAIL_FROM')}>`,
+        },
+        template: {
+          dir: config.get('MAIL_TEMPLATES_DIR'),
+          adapter: new HandlebarsAdapter(),
+          options: {
+            strict: true,
+          },
+        },
+      }),
+      inject: [ConfigService],
+    }),
+    ClsModule.forRoot({
+      global: true,
+      middleware: {
+        mount: true,
+      },
+    }),
+    AutomapperModule.forRoot([{ name: 'classes', strategyInitializer: classes() }]),
+    AuthApiModule,
+    RouterModule.register([
+      {
+        path: 'auth',
+        module: AuthApiModule,
+      },
+    ]),
+  ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AccessTokenGuard,
+    },
+    Logger,
+  ],
 })
 export class AppModule {}

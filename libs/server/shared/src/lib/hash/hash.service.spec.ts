@@ -1,5 +1,6 @@
-import { HashService } from './hash.service';
 import { Test, TestingModule } from '@nestjs/testing';
+
+import { HashService } from './hash.service';
 
 describe('HashService', () => {
   let service: HashService;

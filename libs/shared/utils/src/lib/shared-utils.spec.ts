@@ -148,7 +148,9 @@ describe('shared-utils', () => {
       expect(actual).toEqual(expected);
     });
     it('should throw invalid error', () => {
-      expect(() => getExpirationDate('3', new Date(2020, 1, 1))).toThrowError('Invalid expiration format, format must have time post fix (s, m, h, d, ms). Example: 1d, 1h, 1m, 1s, 1ms');
+      expect(() => getExpirationDate('3', new Date(2020, 1, 1))).toThrowError(
+        'Invalid expiration format, format must have time post fix (s, m, h, d, ms). Example: 1d, 1h, 1m, 1s, 1ms'
+      );
     });
     it('should throw expiresIn required error', () => {
       expect(() => getExpirationDate('', new Date(2020, 1, 1))).toThrowError('Expiration format is required');

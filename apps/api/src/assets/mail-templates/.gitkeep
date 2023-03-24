@@ -1,0 +1,8 @@
+<body>
+<p>Please use the following code to confirm you account action</p>
+<span>Code: <b>${code}</b></span>
+<span>Code expires in 10 minutes</span>
+<p>Thank you for using our service</p>
+<p>Best regards</p>
+<p>Team</p>
+</body>
