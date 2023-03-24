@@ -44,7 +44,7 @@ Maybe you can mention me or this repo in the acknowledgements too
     <img alt="License: MIT" src="https://img.shields.io/github/license/kornect/nxan-template" />
   </a>
 </p>
-
+</div>
 <br />
 
 <!-- Table of Contents -->
