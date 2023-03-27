@@ -7,6 +7,10 @@ export class Session {
   roles: string[];
   sub: string;
   defaultRole: string;
+
+  get userId(): string {
+    return this.sub;
+  }
 }
 
 /**
