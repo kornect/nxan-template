@@ -93,7 +93,7 @@ export class AuthService {
    * Checks if the current access token is valid
    */
   hasValidAccessToken() {
-    return this.isTokenExpired('refresh').pipe(
+    return this.isTokenExpired('access').pipe(
       map((expired) => {
         return !expired;
       })
