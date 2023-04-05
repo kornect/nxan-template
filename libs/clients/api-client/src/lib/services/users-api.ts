@@ -36,7 +36,7 @@ export class UsersApi extends BaseService {
   /**
    * Path part for operation register
    */
-  static readonly RegisterPath = '/auth/users/register';
+  static readonly RegisterPath = '/users/register';
 
   /**
    * Register a new user.
@@ -97,7 +97,7 @@ export class UsersApi extends BaseService {
   /**
    * Path part for operation registerConfirm
    */
-  static readonly RegisterConfirmPath = '/auth/users/register-confirm';
+  static readonly RegisterConfirmPath = '/users/register-confirm';
 
   /**
    * Confirm a new user.
@@ -158,7 +158,7 @@ export class UsersApi extends BaseService {
   /**
    * Path part for operation registerResend
    */
-  static readonly RegisterResendPath = '/auth/users/register-resend';
+  static readonly RegisterResendPath = '/users/register-resend';
 
   /**
    * Resend confirmation email.
@@ -219,7 +219,7 @@ export class UsersApi extends BaseService {
   /**
    * Path part for operation registerCancel
    */
-  static readonly RegisterCancelPath = '/auth/users/register-cancel';
+  static readonly RegisterCancelPath = '/users/register-cancel';
 
   /**
    * Cancel registration.
@@ -280,7 +280,7 @@ export class UsersApi extends BaseService {
   /**
    * Path part for operation changeEmail
    */
-  static readonly ChangeEmailPath = '/auth/users/{id}/change-email';
+  static readonly ChangeEmailPath = '/users/{id}/change-email';
 
   /**
    * Change email address.
@@ -344,7 +344,7 @@ export class UsersApi extends BaseService {
   /**
    * Path part for operation confirmEmailChange
    */
-  static readonly ConfirmEmailChangePath = '/auth/users/{id}/confirm-email-change';
+  static readonly ConfirmEmailChangePath = '/users/{id}/confirm-email-change';
 
   /**
    * Confirm email address change.
@@ -408,7 +408,7 @@ export class UsersApi extends BaseService {
   /**
    * Path part for operation changePassword
    */
-  static readonly ChangePasswordPath = '/auth/users/{id}/change-password';
+  static readonly ChangePasswordPath = '/users/{id}/change-password';
 
   /**
    * Change password.
@@ -472,7 +472,7 @@ export class UsersApi extends BaseService {
   /**
    * Path part for operation changeDisplayName
    */
-  static readonly ChangeDisplayNamePath = '/auth/users/{id}/change-display-name';
+  static readonly ChangeDisplayNamePath = '/users/{id}/change-display-name';
 
   /**
    * Change display name.
@@ -536,7 +536,7 @@ export class UsersApi extends BaseService {
   /**
    * Path part for operation deleteAccount
    */
-  static readonly DeleteAccountPath = '/auth/users/{id}/delete-account';
+  static readonly DeleteAccountPath = '/users/{id}/delete-account';
 
   /**
    * Delete account.
@@ -600,7 +600,7 @@ export class UsersApi extends BaseService {
   /**
    * Path part for operation forgotPassword
    */
-  static readonly ForgotPasswordPath = '/auth/users/forgot-password';
+  static readonly ForgotPasswordPath = '/users/forgot-password';
 
   /**
    * Forgot password.
@@ -661,7 +661,7 @@ export class UsersApi extends BaseService {
   /**
    * Path part for operation resetPassword
    */
-  static readonly ResetPasswordPath = '/auth/users/reset-password';
+  static readonly ResetPasswordPath = '/users/reset-password';
 
   /**
    * Reset password.

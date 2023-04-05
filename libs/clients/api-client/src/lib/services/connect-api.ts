@@ -27,7 +27,7 @@ export class ConnectApi extends BaseService {
   /**
    * Path part for operation getToken
    */
-  static readonly GetTokenPath = '/auth/connect/token';
+  static readonly GetTokenPath = '/connect/token';
 
   /**
    * Get an access token.
@@ -88,7 +88,7 @@ export class ConnectApi extends BaseService {
   /**
    * Path part for operation getUserinfo
    */
-  static readonly GetUserinfoPath = '/auth/connect/userinfo';
+  static readonly GetUserinfoPath = '/connect/userinfo';
 
   /**
    * Get user info.
