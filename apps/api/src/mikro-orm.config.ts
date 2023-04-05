@@ -1,8 +1,9 @@
 import { Options } from '@mikro-orm/postgresql';
 import 'reflect-metadata';
 
-import { AUTH_DOMAIN_ENTITIES } from '@nxan/server/auth/domain';
+
 import { isProduction } from '@nxan/shared/utils';
+import { USERS_DOMAIN_ENTITIES } from '@nxan/server/users/domain';
 
 const config: Options = {
   type: 'postgresql',
@@ -12,7 +13,7 @@ const config: Options = {
       ssl: isProduction(),
     },
   },
-  entities: [...AUTH_DOMAIN_ENTITIES],
+  entities: [...USERS_DOMAIN_ENTITIES],
   migrations: {
     tableName: '__migrations',
     pathTs: './src/app/migrations',

@@ -1,11 +1,12 @@
 import { AnyAbility, defineAbility } from '@casl/ability';
 import { Injectable } from '@nestjs/common';
+import { ClaimsAbility, Session } from '@nxan/server/security';
+import { UserEntity } from '@nxan/server/users/domain';
 
 
 
 import { Claims } from './claims';
-import { ClaimsAbility, Session } from '@nxan/server/auth/public';
-import { UserEntity } from '@nxan/server/auth/domain';
+
 
 @Injectable()
 export class UserClaimsAbility extends ClaimsAbility {
@@ -17,7 +18,6 @@ export class UserClaimsAbility extends ClaimsAbility {
       if (session.roles.includes('admin')) {
         can(Claims.Manage, 'all');
       } else {
-        can(Claims.Register, 'all');
         can(Claims.ChangeEmail, 'UserEntity', { id: session.sub });
         can(Claims.ChangePassword, 'UserEntity', { id: session.sub });
         can(Claims.DeleteUser, 'UserEntity', { id: session.sub });

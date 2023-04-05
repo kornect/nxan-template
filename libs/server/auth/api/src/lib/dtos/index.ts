@@ -50,7 +50,7 @@ export class TokenResponseDto {
       oneOf: [{ type: 'string' }],
     },
   })
-  user: Map<string, unknown> | Record<string, unknown>;
+  user: Map<string, any> | Record<string, any>;
 }
 
 export class AuthenticatedUser {

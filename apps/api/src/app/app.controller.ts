@@ -7,7 +7,8 @@ import {
   HealthIndicatorResult,
   MikroOrmHealthIndicator
 } from '@nestjs/terminus';
-import { AllowAnonymous } from '@nxan/server/auth/public';
+import { AllowAnonymous } from '@nxan/server/security';
+
 
 
 
