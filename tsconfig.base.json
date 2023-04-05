@@ -17,11 +17,14 @@
     "paths": {
       "@nxan/clients/api-client": ["libs/clients/api-client/src/index.ts"],
       "@nxan/clients/auth-client": ["libs/clients/auth-client/src/index.ts"],
+      "@nxan/clients/config-client": ["libs/clients/config-client/src/index.ts"],
       "@nxan/server/*": ["libs/server/shared/src/lib/*"],
       "@nxan/server/auth/api": ["libs/server/auth/api/src/index.ts"],
       "@nxan/server/auth/app": ["libs/server/auth/app/src/index.ts"],
       "@nxan/server/auth/domain": ["libs/server/auth/domain/src/index.ts"],
       "@nxan/server/auth/public": ["libs/server/auth/public/src/index.ts"],
+      "@nxan/server/users/api": ["libs/server/users/api/src/index.ts"],
+      "@nxan/server/users/domain": ["libs/server/users/domain/src/index.ts"],
       "@nxan/shared/utils": ["libs/shared/utils/src/index.ts"]
     }
   },

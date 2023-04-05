@@ -7,17 +7,18 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { Logger, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { APP_GUARD, RouterModule } from '@nestjs/core';
+import { APP_GUARD } from '@nestjs/core';
 import { TerminusModule } from '@nestjs/terminus';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { ClsModule } from 'nestjs-cls';
 
-import { AuthApiModule } from '@nxan/server/auth/api';
-import { AccessTokenGuard } from '@nxan/server/auth/app';
+import { AccessTokenGuard, ServerAuthApiModule } from '@nxan/server/auth/api';
 import { isProduction } from '@nxan/shared/utils';
 
 import { AppController } from './app.controller';
 import { migrationsList } from './app.migrations';
+import { ServerUsersApiModule } from '@nxan/server/users/api';
+import { SecurityModule } from '@nxan/server/security';
 
 @Module({
   imports: [
@@ -77,13 +78,11 @@ import { migrationsList } from './app.migrations';
       },
     }),
     AutomapperModule.forRoot([{ name: 'classes', strategyInitializer: classes() }]),
-    AuthApiModule,
-    RouterModule.register([
-      {
-        path: 'auth',
-        module: AuthApiModule,
-      },
-    ]),
+    ServerAuthApiModule,
+    ServerUsersApiModule,
+    SecurityModule.forRoot({
+      claimsAbilities: []
+    })
   ],
   controllers: [AppController],
   providers: [

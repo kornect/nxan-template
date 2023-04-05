@@ -1,11 +1,12 @@
 import { Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AllowAnonymous } from '@nxan/server/security';
+import { TokenRequestDto, TokenResponseDto, UserInfoDto } from '../dtos';
+import { AuthService } from '../services';
 
 
-import { TokenRequestDto, TokenResponseDto, UserInfoDto } from '@nxan/server/auth/app';
-import { AuthService } from '@nxan/server/auth/app';
-import { AllowAnonymous } from '@nxan/server/auth/public';
+
 
 
 @ApiTags('connect')
