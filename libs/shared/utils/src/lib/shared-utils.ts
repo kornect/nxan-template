@@ -1,7 +1,7 @@
 import { addDays, addHours, addMilliseconds, addMinutes, addSeconds } from 'date-fns';
 
-export function objectToValuesArray(obj: any): any[] {
-  const values: any[] = [];
+export function objectToValuesArray(obj: never): never[] {
+  const values: never[] = [];
   Object.keys(obj).forEach((key) => {
     values.push(obj[key]);
   });
@@ -22,8 +22,12 @@ export function isNullOrWhitespace(data: string) {
   return data === null || data === undefined || data.trim() === '';
 }
 
-export function isNullOrUndefined(data: any) {
+export function isNullOrUndefined(data: never) {
   return data === null || data === undefined;
+}
+
+export function objHasProperty(obj: any, property: string) {
+  return obj && obj.hasOwn(property);
 }
 
 export function paramsToDictionary(
@@ -43,11 +47,11 @@ export function isProduction(): boolean {
   return process.env['NODE_ENV'] === 'production';
 }
 
-export function isNullOrEmptyArray(value: any[]) {
-  return value === null || value === undefined || (value as any[])?.length === 0;
+export function isNullOrEmptyArray(value: never[]) {
+  return value === null || value === undefined || (value as never[])?.length === 0;
 }
 
-export function hasDuplicates(array: any[]) {
+export function hasDuplicates(array: never[]) {
   // check if array is empty or has only one element
   if (isNullOrEmptyArray(array) || array.length < 2) {
     return false;
@@ -62,7 +66,7 @@ export function dateOrNull(value: string | Date | null | undefined) {
   return new Date(value);
 }
 
-export function removeNulls(obj: any) {
+export function removeNulls(obj: never) {
   Object.keys(obj).forEach((key) => {
     if (obj[key] && typeof obj[key] === 'object') removeNulls(obj[key]);
     else if (isNullOrEmpty(obj[key])) delete obj[key];
@@ -70,7 +74,7 @@ export function removeNulls(obj: any) {
   return obj;
 }
 
-export function isEmpty(obj: any) {
+export function isEmpty(obj: never) {
   if (isNullOrUndefined(obj)) {
     return true;
   }

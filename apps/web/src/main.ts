@@ -1,12 +1,13 @@
+import { HttpClientModule } from '@angular/common/http';
+import { importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter, withEnabledBlockingInitialNavigation } from '@angular/router';
 
+import { ApiModule } from '@nxan/client/api';
+import { AuthModule } from '@nxan/client/auth/core';
+
 import { AppComponent } from './app/app.component';
 import { appRoutes } from './app/app.routes';
-import { ApiModule } from '@nxan/clients/api-client';
-import { AuthModule } from '@nxan/clients/auth-client';
-import { importProvidersFrom } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -14,10 +15,12 @@ bootstrapApplication(AppComponent, {
       HttpClientModule,
       ApiModule.forRoot({ rootUrl: 'http://localhost:3333' }),
       AuthModule.forRoot({
-        homeUrl: '/',
-        loginUrl: '/login',
+        postLogoutRedirectUri: '/',
+        postLoginRedirectUri: '/',
+        loginUri: '/login',
+        scope: 'offline_access'
       })
     ),
-    provideRouter(appRoutes, withEnabledBlockingInitialNavigation())
+    provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
   ],
 }).catch((err) => console.error(err));

@@ -15,8 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@nxan/clients/api-client": ["libs/clients/api-client/src/index.ts"],
-      "@nxan/clients/auth-client": ["libs/clients/auth-client/src/index.ts"],
+      "@nxan/client/api": ["libs/client/api/src/index.ts"],
+      "@nxan/client/auth/core": ["libs/client/auth/core/src/index.ts"],
       "@nxan/clients/config-client": ["libs/clients/config-client/src/index.ts"],
       "@nxan/server/*": ["libs/server/shared/src/lib/*"],
       "@nxan/server/auth/api": ["libs/server/auth/api/src/index.ts"],
