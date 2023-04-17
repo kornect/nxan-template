@@ -3,13 +3,25 @@ import {
   hasDuplicates,
   isNullOrEmptyArray,
   isNullOrUndefined,
-  objectToValuesArray,
+  objectToValuesArray, objHasProperty,
   paramsToDictionary,
   removeNulls,
-  replaceNonAlphaNumeric,
+  replaceNonAlphaNumeric
 } from './shared-utils';
 
 describe('shared-utils', () => {
+  describe('objHasProperty', () => {
+    it('should check if object has property', () => {
+      const actual1 = objHasProperty({ a: 1, b: 2, c: 3 }, 'a');
+      const actual2 = objHasProperty({ a: 1, b: 2, c: 3 }, 'x');
+      const actual3 = objHasProperty(null, 'c');
+
+      expect(actual1).toBeTruthy()
+      expect(actual2).toBeFalsy();
+      expect(actual3).toBeFalsy();
+    });
+  });
+
   describe('objectToValuesArray', () => {
     it('should convert object to values array', () => {
       const expected = [1, 2, 3];
@@ -21,7 +33,7 @@ describe('shared-utils', () => {
     });
 
     it('should convert object to values array', () => {
-      const expected: any[] = [];
+      const expected: unknown[] = [];
       const actual = objectToValuesArray({});
 
       expect(actual).toEqual(expected);

@@ -3,8 +3,8 @@ import { importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter, withEnabledBlockingInitialNavigation } from '@angular/router';
 
-import { ApiModule } from '@nxan/client/api';
-import { AuthModule } from '@nxan/client/auth/core';
+import { ApiModule } from '@nxan/client/core/api';
+import { AuthModule } from '@nxan/client/core/auth';
 
 import { AppComponent } from './app/app.component';
 import { appRoutes } from './app/app.routes';
@@ -15,10 +15,11 @@ bootstrapApplication(AppComponent, {
       HttpClientModule,
       ApiModule.forRoot({ rootUrl: 'http://localhost:3333' }),
       AuthModule.forRoot({
-        postLogoutRedirectUri: '/',
-        postLoginRedirectUri: '/',
+        postLogoutRedirectUri: '/login',
+        postLoginRedirectUri: '/home',
         loginUri: '/login',
-        scope: 'offline_access'
+        scope: 'offline_access',
+        useStorage: 'local'
       })
     ),
     provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),

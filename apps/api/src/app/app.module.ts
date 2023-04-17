@@ -12,13 +12,13 @@ import { TerminusModule } from '@nestjs/terminus';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { ClsModule } from 'nestjs-cls';
 
-import { AccessTokenGuard, ServerAuthApiModule } from '@nxan/server/auth/api';
+import { AccessTokenGuard, ServerAuthApiModule } from '@nxan/server/feature-auth/api';
+import { ServerUsersApiModule } from '@nxan/server/feature-users/api';
+import { SecurityModule } from '@nxan/server/core/security';
 import { isProduction } from '@nxan/shared/utils';
 
 import { AppController } from './app.controller';
 import { migrationsList } from './app.migrations';
-import { ServerUsersApiModule } from '@nxan/server/users/api';
-import { SecurityModule } from '@nxan/server/security';
 
 @Module({
   imports: [
@@ -81,8 +81,8 @@ import { SecurityModule } from '@nxan/server/security';
     ServerAuthApiModule,
     ServerUsersApiModule,
     SecurityModule.forRoot({
-      claimsAbilities: []
-    })
+      claimsAbilities: [],
+    }),
   ],
   controllers: [AppController],
   providers: [

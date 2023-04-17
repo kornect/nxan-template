@@ -1,9 +1,8 @@
 import { Options } from '@mikro-orm/postgresql';
 import 'reflect-metadata';
 
-
+import { USERS_DOMAIN_ENTITIES } from '@nxan/server/feature-users/domain';
 import { isProduction } from '@nxan/shared/utils';
-import { USERS_DOMAIN_ENTITIES } from '@nxan/server/users/domain';
 
 const config: Options = {
   type: 'postgresql',

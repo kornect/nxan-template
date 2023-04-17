@@ -1,0 +1,37 @@
+{
+  "name": "client-core-api",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/client/core/api/src",
+  "prefix": "nxan",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/client/core/api/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/client/core/api/**/*.ts", "libs/client/core/api/**/*.html"]
+      }
+    },
+    "generate-api-client": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ng-openapi-gen --config libs/client/core/api/ng-openapi-gen.json"
+      }
+    }
+  },
+  "tags": []
+}
