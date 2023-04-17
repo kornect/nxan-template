@@ -8,11 +8,13 @@ export interface AuthOptionsParams {
   clientSecret?: string;
   scope?: string;
   loginUri?: string;
+  homeUri?: string;
   postLogoutRedirectUri?: string;
   postLoginRedirectUri?: string;
   ignoredUrls?: string[];
   useStorage: 'local' | 'session' | 'custom';
   storage?: Type<AuthStorage> | null;
+  skipRedirectOnUnauthorized?: boolean;
 }
 
 @Injectable({
@@ -24,9 +26,11 @@ export class AuthOptions implements AuthOptionsParams {
   clientSecret?: string;
   scope?: string;
   loginUri?: string = '/login';
+  homeUri?: string = '/home';
   postLoginRedirectUri?: string = '/';
   postLogoutRedirectUri?: string = '/';
   ignoredUrls?: string[];
   storage?: Type<AuthStorage> | null;
   useStorage: "local" | "session" | "custom" = "local";
+  skipRedirectOnUnauthorized?: boolean = false;
 }

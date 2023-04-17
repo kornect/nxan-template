@@ -6,6 +6,14 @@ import { mergeMap, of } from 'rxjs';
 import { AuthOptions } from '../auth-options';
 import { AuthService } from '../auth.service';
 
+/**
+ * Guard to allow only authorized access to a route.
+ * If the user is not logged in, they will be redirected to the login page.
+ * @returns true if the user is logged in, false otherwise
+ * @example use with private routes like dashboard, profile, etc.
+ * @param next
+ * @param state
+ */
 export const authorizedOnly = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
   const options = inject(AuthOptions);
   const router = inject(Router);
@@ -14,7 +22,7 @@ export const authorizedOnly = (next: ActivatedRouteSnapshot, state: RouterStateS
 
   return authService.isAuthenticatedAsync().pipe(
     mergeMap((isLoggedIn) => {
-      if (!isLoggedIn) {
+      if (!isLoggedIn && !options.skipRedirectOnUnauthorized) {
         router
           .navigate([options.loginUri ?? '/login'], {
             queryParams: {

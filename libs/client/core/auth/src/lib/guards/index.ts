@@ -1,2 +1,2 @@
-export * from './anonymous-guard.service';
-export * from './authorized.guard';
+export * from './anonymous-only';
+export * from './authorized-only';
