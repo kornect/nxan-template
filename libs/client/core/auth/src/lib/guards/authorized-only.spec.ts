@@ -4,7 +4,9 @@ import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterStateSnapshot } f
 import { SpectatorService, createServiceFactory } from '@ngneat/spectator/jest';
 import { firstValueFrom, of } from 'rxjs';
 
-import { AuthOptions, AuthService, authorizedOnly } from '@nxan/client/core/auth';
+import { AuthOptions } from '../auth-options';
+import { AuthService } from '../auth.service';
+import { authorizedOnly } from './authorized-only';
 
 describe('AuthorizedOnly', () => {
   class MockAuthGuard {}

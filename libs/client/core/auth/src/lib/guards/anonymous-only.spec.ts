@@ -3,8 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { SpectatorService, createServiceFactory } from '@ngneat/spectator/jest';
 import { firstValueFrom, of } from 'rxjs';
-
-import { AuthOptions, AuthService, anonymousOnly } from '@nxan/client/core/auth';
+import { AuthOptions } from '../auth-options';
+import { AuthService } from '../auth.service';
+import { anonymousOnly } from './anonymous-only';
 
 describe('AnonymousOnly', () => {
   class MockAuthGuard {}

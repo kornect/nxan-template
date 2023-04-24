@@ -15,7 +15,7 @@ export enum Event {
   INIT = 'init',
   PROFILE_LOADED = 'profile_loaded',
   LOGGED_OUT = 'logged_out',
-  EXPIRED = 'expired',
+  UNAUTHORIZED = 'unauthorized',
 }
 
 export interface AuthEvent {
@@ -65,16 +65,12 @@ export class AuthService {
   /**
    * Checks if user session has valid access token and attempts to refresh it if it doesn't
    */
-  isAuthenticatedAsync(attemptRefresh = true) {
+  isAuthenticatedAsync() {
     return this.hasValidAccessToken().pipe(
       mergeMap((valid) => {
         if (valid) {
           return of(true);
         } else {
-          if (!attemptRefresh) {
-            return of(false);
-          }
-
           return this.refreshTokens().pipe(
             mergeMap(() => of(true)),
             catchError(() => of(false))
@@ -120,12 +116,16 @@ export class AuthService {
         )
         .pipe(
           catchError((error) => {
-            this.publishState(Event.EXPIRED);
+            this.publishState(Event.UNAUTHORIZED);
             this.isRefreshing = false;
             this.refreshTokenSubject.next({
               failed: true,
             });
-            return throwError(error);
+
+            return this.storage.clearSession().pipe(
+              mergeMap(() => {
+                return throwError(error);
+              }));
           })
         );
     } else {

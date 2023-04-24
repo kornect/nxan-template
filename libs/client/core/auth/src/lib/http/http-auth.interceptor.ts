@@ -1,11 +1,12 @@
 import { HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject, throwError } from 'rxjs';
+import { BehaviorSubject, mergeMap, throwError } from 'rxjs';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
 
 import { AuthOptions } from '../auth-options';
 import { AuthService } from '../auth.service';
+import { IS_AUTH_REQUIRED } from './types';
 
 @Injectable({
   providedIn: 'root',
@@ -16,42 +17,44 @@ export class HttpAuthInterceptor implements HttpInterceptor {
 
   constructor(private options: AuthOptions, private authService: AuthService) {}
 
-  ignoredUrl(url: string): boolean {
+  isAnonymousRequest(req: HttpRequest<never>): boolean {
+    const hasAuthRequired = req.context.has(IS_AUTH_REQUIRED);
+    if(hasAuthRequired) {
+      const isRequired = req.context.get(IS_AUTH_REQUIRED);
+
+      if(!isRequired) {
+        return true;
+      }
+    }
+
+    const { url } = req;
+
     if (!this.options.ignoredUrls) return false;
 
     return this.options.ignoredUrls.some((ignoredUrl: string) => url.endsWith(ignoredUrl));
   }
 
   intercept(req: HttpRequest<never>, next: HttpHandler) {
-    if (this.ignoredUrl(req.url)) {
+    if (this.isAnonymousRequest(req)) {
       return next.handle(req);
-    }
-
-    return this.authService.isAuthenticatedAsync().pipe(
-      switchMap((isAuthenticated) => {
-        if (!isAuthenticated || this.ignoredUrl(req.url)) {
-          return next.handle(req);
-        } else {
+    } else {
+      return this.authService.isAuthenticatedAsync().pipe(
+        mergeMap(() => {
           return this.authService.getAccessToken().pipe(
-            switchMap((accessToken) => {
-              if (!accessToken) {
-                return next.handle(req);
-              } else {
-                return next.handle(this.addAccessToken(req, accessToken)).pipe(
-                  catchError((error) => {
-                    if (error.status === 401 && error instanceof HttpErrorResponse) {
-                      return this.handle401Error(req, next);
-                    } else {
-                      return throwError(error);
-                    }
-                  })
-                );
-              }
+            mergeMap((accessToken) => {
+              return next.handle(this.addAccessToken(req, accessToken));
             })
           );
-        }
-      })
-    );
+        }),
+        catchError((error) => {
+          if (error.status === 401 && error instanceof HttpErrorResponse) {
+            return this.handle401Error(req, next);
+          }
+
+          return throwError(error);
+        })
+      );
+    }
   }
 
   private addAccessToken(req: HttpRequest<never>, token: string | null): HttpRequest<never> {

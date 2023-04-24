@@ -6,7 +6,7 @@ import { ApiModule } from '@nxan/client/core/api';
 
 import { AuthOptions, AuthOptionsParams } from './auth-options';
 import { AuthService } from './auth.service';
-import { HttpAuthInterceptor } from './interceptors';
+import { HttpAuthInterceptor } from './http';
 import { JwtService } from './jwt';
 import { AuthStorage, LocalAuthStorage, SessionAuthStorage } from './storage';
 
