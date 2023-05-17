@@ -14,13 +14,14 @@ async function bootstrap() {
   const logger = app.get(Logger);
 
   const port = config.get('API_PORT') || 3333;
-  const globalPrefix = '';
+  const globalPrefix = config.get('API_GLOBAL_PREFIX') || '';
   app.setGlobalPrefix(globalPrefix);
 
   logger.log(`Global prefix: ${globalPrefix}`);
 
   logger.log(`Swagger enabled: ${config.get('SWAGGER_ENABLED')}`);
   if (config.get('SWAGGER_ENABLED')) {
+    logger.log(`Setup swagger`);
     const options = new DocumentBuilder()
       .setTitle(config.get('API_NAME') ?? 'NXAN API')
       .setDescription(config.get('API_DESCRIPTION') ?? 'NXAN API')
@@ -30,7 +31,7 @@ async function bootstrap() {
     SwaggerModule.setup('swagger', app, document);
   }
 
-  logger.log(`Setup helmet`);
+  logger.log(`Setting up helmet`);
   app.use(
     helmet({
       contentSecurityPolicy: {
@@ -44,7 +45,7 @@ async function bootstrap() {
     })
   );
 
-  logger.log(`Setup CORS: ${config.get('CORS_ORIGIN') || '*'} `);
+  logger.log(`Setting up CORS: ${config.get('CORS_ORIGIN') || '*'} `);
   app.enableCors({
     origin: config.get('CORS_ORIGIN') || '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -52,7 +53,7 @@ async function bootstrap() {
     optionsSuccessStatus: 204
   });
 
-  logger.log(`Setup validation pipe`);
+  logger.log(`Setting up validation pipes`);
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
   app.useGlobalPipes(
     new ValidationPipe({
